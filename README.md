@@ -1,4 +1,5 @@
-# torch-profiler-tutorial
+# How to Profile Models in PyTorch
+By Quentin Anthony
 
 This tutorial seeks to teach users about using profiling tools such as nvsys, rocprof, and the torch profiler in a simple transformers training loop.
 
