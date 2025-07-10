@@ -1,7 +1,17 @@
 # How to Profile Models in PyTorch
 By Quentin Anthony
 
-This tutorial seeks to teach users about using profiling tools such as nvsys, rocprof, and the torch profiler in a simple transformers training loop.
+## Table of Contents
+* [PyTorch Profiler](#pytorch-profiler)
+    * [Quickstart](#quickstart)
+    * [GPU Efficiency](#gpu-efficiency)
+    * [Reading Traces](#reading-traces)
+    * [Baby's First Optimization](#babys-first-optimization)
+* [Low-level GPU Profilers (coming soon)](#low-level-gpu-profilers)
+    * [NVIDIA NSYS Profiler (coming soon)](#nvidia-nsys-profiler)
+    * [AMD Rocprof Profiler (coming soon)](#amd-rocprof-profiler)
+
+This tutorial seeks to teach users about using profiling tools such as nvsys, rocprof, and the torch profiler in a simple transformers training loop. We will cover how to use the PyTorch profiler to identify performance bottlenecks, understand GPU efficiency metrics, and perform initial optimizations.
 
 
 ## PyTorch Profiler
