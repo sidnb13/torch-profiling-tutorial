@@ -40,6 +40,8 @@ class SimpleTransformerLayer(nn.Module):
         """
         # 1. Self-Attention Block
         with torch.profiler.record_function("Self-Attention"):
+            # The multi-head attention layer expects query, key, and value inputs.
+            # For self-attention, the source tensor is used for all three.
             attn_output, _ = self.self_attention(src, src, src)
 
         # Residual connection with dropout and LayerNorm
@@ -72,7 +74,7 @@ def main():
 
     # --- Instantiate Model and Create Dummy Input ---
     model = SimpleTransformerLayer(embed_dim, num_heads, ff_dim).to(device)
-    model.eval()  # Set to evaluation mode for profiling inference
+    model.eval() # Set to evaluation mode for profiling inference
 
     # Create a random input tensor
     dummy_input = torch.randn(batch_size, seq_length, embed_dim).to(device)
@@ -81,10 +83,11 @@ def main():
     print("-" * 50)
 
     # --- Run the Profiler ---
+    # The profiler context manager will trace the execution and performance.
     with torch.profiler.profile(
         activities=[
             torch.profiler.ProfilerActivity.CPU,
-            torch.profiler.ProfilerActivity.CUDA,
+            torch.profiler.ProfilerActivity.CUDA, # Only include if CUDA is available
         ],
         schedule=torch.profiler.schedule(wait=1, warmup=1, active=3, repeat=2),
         on_trace_ready=torch.profiler.tensorboard_trace_handler('./log/transformer'),
@@ -92,23 +95,28 @@ def main():
         profile_memory=True,
         with_stack=True
     ) as prof:
+        # The profiler will step through a schedule of wait, warmup, and active phases.
+        # We need to call `prof.step()` at the end of each iteration.
         for i in range(10):
+            # We only care about the forward pass for this example
             with torch.no_grad():
-                with torch.profiler.record_function("Model Forward Pass"):
-                    model(dummy_input)
-            prof.step()
+                model(dummy_input)
+            prof.step() # Notify the profiler that a step is complete
 
     # --- Print Profiler Results ---
     print("Profiler run complete. Printing summary...")
     print("-" * 50)
 
-    print(prof.key_averages(group_by_input_shape=True).table(
-        sort_by="cpu_time_total", row_limit=15))
+    # Print a summary of the results to the console, grouped by our custom labels.
+    # The `group_by_input_shape` is useful for seeing how different tensor sizes perform.
+    # The `group_by_stack_n` helps attribute time to specific lines of code.
+    print(prof.key_averages(group_by_input_shape=True).table(sort_by="cpu_time_total", row_limit=15))
 
     print("\n" + "-" * 50)
     print("To view the detailed trace, run the following command in your terminal:")
     print("tensorboard --logdir=./log")
     print("-" * 50)
+
 
 if __name__ == "__main__":
     main()

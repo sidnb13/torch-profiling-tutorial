@@ -29,8 +29,6 @@ git clone https://github.com/Quentin-Anthony/torch-profiler-tutorial.git
 docker run --privileged --shm-size=1000gb --gpus all -it --rm -v ~/torch-profiler-tutorial:/torch-profiler-tutorial nvcr.io/nvidia/pytorch:23.10-py3
 ```
 
-*Note:* Watch the file mount, and make sure to update that for your use case! 
-
 <details>
 <summary>What does this command mean?</summary>
 <br>
@@ -48,7 +46,7 @@ docker run --privileged --shm-size=1000gb --gpus all -it --rm -v ~/torch-profile
 Then I can just run the script:
 
 ```
-python /torch-profiler-tutorial/torch_prof.py
+python torch_prof.py
 ```
 
 which gives output:
