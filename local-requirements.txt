@@ -1,0 +1,17 @@
+absl-py==2.3.1
+grpcio==1.73.1
+markdown==3.8.2
+markupsafe==3.0.2
+numpy==2.2.6
+packaging==25.0
+pandas==2.3.1
+protobuf==6.31.1
+python-dateutil==2.9.0.post0
+pytz==2025.2
+setuptools==80.9.0
+six==1.17.0
+tensorboard==2.19.0
+tensorboard-data-server==0.7.2
+torch-tb-profiler==0.4.3
+tzdata==2025.2
+werkzeug==3.1.3
