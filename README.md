@@ -111,7 +111,7 @@ Now I *could* run tensorboard within my container and port-forward it to my loca
 So for me on my local machine:
 
 ```
-pip install torch_tb_profiler
+pip install -r local-requirements.txt
 mkdir torch-profs
 scp -r <remote-machine>:/path/to/log/ ./torch-profs/
 tensorboard --logdir=./torch-profs/log
