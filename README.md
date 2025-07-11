@@ -47,7 +47,7 @@ docker run --privileged --shm-size=1000gb --gpus all -it --rm -v ~/torch-profile
 
 Then I can just run the script:
 
-```python3
+```
 python /torch-profiler-tutorial/torch_prof.py
 ```
 
