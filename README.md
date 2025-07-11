@@ -111,9 +111,12 @@ Now I *could* run tensorboard within my container and port-forward it to my loca
 So for me on my local machine:
 
 ```
+pip install torch_tb_profiler
 scp -r <remote-machine>:/path/to/log/ ./torch-profs/
 tensorboard --logdir=./torch-profs/log
 ```
+
+(I'll note here that the tensorboard trace viewer is RAM-hungry and may not display if your trace is big. If you fall into that bucket, you can use other trace viewers like https://ui.perfetto.dev/, but it's less feature-rich than the torch profiler. You can reduce the size of your trace by reducing the number of profiling iters or the global batch size. If that fails, you could also turn off `with_stack=True` or reduce the number of layers in your model.)
 
 Which then lets me navigate to `http://localhost:6006/` (or wherever I tell tensorboard, if I choose to) on my favorite web browser and see:
 
@@ -124,7 +127,7 @@ Which then lets me navigate to `http://localhost:6006/` (or wherever I tell tens
 Some notes:
 1. "Execution Summary": I can now immediately see where my iter time is being spent. There are very high proportions of "CPU Exec" and "Memcpy", so the GPU is sitting idle for the majority of each iter!
 2. "GPU Summary": The poor GPU util can also be seen via the low GPU utilization and SM efficiency
-2. "Step Time Breakdown" We profile for 3 steps. All three have the same kernel time, but the first has much higher CPU and Memcpy time. Looks like initial setup (e.g. moving the model from CPU to GPU) is taking some time.
+3. "Step Time Breakdown" We profile for 3 steps. All three have the same kernel time, but the first has much higher CPU and Memcpy time. Looks like initial setup (e.g. moving the model from CPU to GPU) is taking some time.
 
 
 And now for a painstakingly detailed look at measuring GPU efficiency:
