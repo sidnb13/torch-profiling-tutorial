@@ -112,6 +112,7 @@ So for me on my local machine:
 
 ```
 pip install torch_tb_profiler
+mkdir torch-profs
 scp -r <remote-machine>:/path/to/log/ ./torch-profs/
 tensorboard --logdir=./torch-profs/log
 ```
