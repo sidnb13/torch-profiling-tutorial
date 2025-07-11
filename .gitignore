@@ -1,0 +1,3 @@
+# Prevent log directories from getting committed
+log/
+torch-profs/

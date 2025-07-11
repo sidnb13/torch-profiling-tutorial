@@ -1,0 +1,4 @@
+# This file contains sample python package requirements to set up tensorboard and all other libraries for torch profiling.
+tensorboard
+tensorboard-data-server
+torch-tb-profiler
