@@ -117,6 +117,12 @@ scp -r <remote-machine>:/path/to/log/ ./torch-profs/
 tensorboard --logdir=./torch-profs/log
 ```
 
+Setup note: If you don't see messages indicating that runs named 'transformers' are being loaded, particularly for Windows, you may want to run the following command, or verify that the python package exists.
+
+```bash
+pip install torch-tb-profiler
+```
+
 Which then lets me navigate to `http://localhost:6006/` (or wherever I tell tensorboard, if I choose to) on my favorite web browser and see:
 
 <div align="center">
