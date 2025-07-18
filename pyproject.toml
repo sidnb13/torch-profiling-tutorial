@@ -1,0 +1,15 @@
+[project]
+name = "torch-profiling-tutorial"
+version = "0.1.0"
+description = "A simple project for torch profiling tutorial."
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+local = [
+    "tensorboard",
+    "tensorboard-data-server",
+    "torch-tb-profiler"
+]
+remote = [
+    "torch"
+]
